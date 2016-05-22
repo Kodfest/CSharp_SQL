@@ -2,4 +2,4 @@
 <p> <b>Windows Forms Application</b> kullanarak, Azure'daki SQL Server veritabanına bağlanıp, 
 <b>Insert</b> ve <b>Select</b> Sorguları yapılmıştır.
 
-<p> İlgili blog yazısı için <a href="http://kodfest.com" target"_blank">tıklayınız.</a>
+<p> İlgili blog yazısı için <a href="http://kodfest.com" target="_blank">tıklayınız.</a>
