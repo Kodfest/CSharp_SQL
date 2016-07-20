@@ -16,7 +16,7 @@ namespace CSharpSQL_Sample_1
         SqlConnection connect; //Sql bağlantı nesnemiz
         SqlCommand cmd; //Sql sorgu nesnemiz
 
-        //Connection String
+        //Connection String - Azure SQL DataBase
         string conString = @"Server=tcp:kodfest-server.database.windows.net,1433;
             Data Source=kodfest-server.database.windows.net;Initial Catalog=kodfest;
             Persist Security Info=False;User ID={user_name};Password={user_password};
