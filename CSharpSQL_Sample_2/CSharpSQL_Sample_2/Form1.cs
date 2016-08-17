@@ -32,35 +32,42 @@ namespace CSharpSQL_Sample_2
             }
             else
             {
-                cs.Open();
-                cmd = new SqlCommand("SELECT * FROM Person WHERE UserName = '" + userNameTbox.Text + "'", cs);
-                var rdr = cmd.ExecuteScalar();
-                cs.Close();
-                if (rdr != null)
+                try
                 {
-                    MessageBox.Show("Username is already in use. Please choose another one!");
-                }
-                else
-                {
-                    try
+                    cs.Open();
+                    cmd = new SqlCommand("SELECT * FROM Person WHERE UserName = '" + userNameTbox.Text + "'", cs);
+                    var rdr = cmd.ExecuteScalar();
+                    cs.Close();
+                    if (rdr != null)
                     {
-                        cs.Open();
-                        cmd = new SqlCommand("INSERT INTO Person (UserName, Password, RegisterDate) VALUES (@UserName, @Password, @RegisterDate)", cs);
-                        cmd.Parameters.AddWithValue("@UserName", userNameTbox.Text);
-                        cmd.Parameters.AddWithValue("@Password", passwordTbox.Text);
-                        cmd.Parameters.AddWithValue("@RegisterDate", DateTime.Now.ToString());
+                        MessageBox.Show("Username is already in use. Please choose another one!");
+                    }
+                    else
+                    {
+                        try
+                        {
+                            cs.Open();
+                            cmd = new SqlCommand("INSERT INTO Person (UserName, Password, RegisterDate) VALUES (@UserName, @Password, @RegisterDate)", cs);
+                            cmd.Parameters.AddWithValue("@UserName", userNameTbox.Text);
+                            cmd.Parameters.AddWithValue("@Password", passwordTbox.Text);
+                            cmd.Parameters.AddWithValue("@RegisterDate", DateTime.Now.ToString());
 
-                        cmd.ExecuteNonQuery();
-                        MessageBox.Show("Successfully!");
+                            cmd.ExecuteNonQuery();
+                            MessageBox.Show("Successfully!");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                        finally
+                        {
+                            cs.Close();
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                    finally
-                    {
-                        cs.Close();
-                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
             }
         }
@@ -73,20 +80,27 @@ namespace CSharpSQL_Sample_2
             }
             else
             {
-                cs.Open();
-                cmd = new SqlCommand("SELECT * FROM Person WHERE UserName = '" + userNameTbox.Text + "' AND Password = '" + passwordTbox.Text + "'", cs);
-                var rdr = cmd.ExecuteScalar();
+                try
+                {
+                    cs.Open();
+                    cmd = new SqlCommand("SELECT * FROM Person WHERE UserName = '" + userNameTbox.Text + "' AND Password = '" + passwordTbox.Text + "'", cs);
+                    var rdr = cmd.ExecuteScalar();
 
-                if (rdr == null)
-                {
-                    MessageBox.Show("User not found!");
+                    if (rdr == null)
+                    {
+                        MessageBox.Show("User not found!");
+                    }
+                    else
+                    {
+                        editBtn.Visible = true;
+                        deleteBtn.Visible = true;
+                    }
+                    cs.Close();
                 }
-                else
+                catch (Exception ex)
                 {
-                    editBtn.Visible = true;
-                    deleteBtn.Visible = true;
+                    MessageBox.Show(ex.Message);
                 }
-                cs.Close();
             }
         }
 
